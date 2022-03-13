@@ -64,3 +64,4 @@ addBook.addEventListener('click', () => {
     table.innerHTML += template
     addBookToLibrary(title, author, pages, read)
 })
+
