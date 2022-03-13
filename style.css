@@ -1,0 +1,19 @@
+#forms {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+h3 {
+    display: flex;
+    justify-content: center;
+    height: 50px;
+}
+
+#data { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
