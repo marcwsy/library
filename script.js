@@ -14,7 +14,7 @@ class Book {
         }
 }
 
-Book.prototype.toggleRead = function () {
+Book.prototype.toggleRead = function() {
     if (this.read) {
         this.read = false;
     }
@@ -22,6 +22,7 @@ Book.prototype.toggleRead = function () {
         this.read = true;
     }
 }
+
 function addBookToLibrary(title, author, pages, read) {
     let book = new Book(title, author, parseInt(pages), read);
     myLibrary.push(book);
@@ -36,22 +37,31 @@ let readBook = document.getElementById('read')
 
 function deleteRow(elem) {
     table = elem.parentNode.parentNode.parentNode;
-    let row = elem.parentNode.parentNode; 
+    let row = elem.parentNode.parentNode;
+    alert('are you sure you want to delete?')
     row.parentNode.removeChild(row);
-  }
+    }
 
-addBook.addEventListener('click', () => {
+addBook.addEventListener('click', addBookToTable)
+
+function addBookToTable() {
     let title = titleInput.value.toUpperCase()
     let author = authorInput.value.toUpperCase()
     let pages = pagesInput.value.toUpperCase()
     let read = readBook.checked
+    if (title === '') {
+        return alert('Title cannot be blank')
+    } 
+    else if (author === '') {
+        return alert('Author cannot be blank')
+    }
     if (readBook.checked == true) {
         read = 'Yes'
     } 
     else {
         false
         read = 'No'
-    }    
+    }
     let template = `
                     <tr>
                     <td>${title}</td>
@@ -63,5 +73,4 @@ addBook.addEventListener('click', () => {
                     `
     table.innerHTML += template
     addBookToLibrary(title, author, pages, read)
-})
-
+}
