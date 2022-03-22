@@ -28,6 +28,8 @@ function addBookToLibrary(title, author, pages, read) {
     myLibrary.push(book);
 }
 
+
+let editTable;
 let addBook = document.querySelector('button')
 let table = document.querySelector('table')
 let titleInput = document.getElementById('title')
@@ -38,9 +40,14 @@ let readBook = document.getElementById('read')
 function deleteRow(elem) {
     table = elem.parentNode.parentNode.parentNode;
     let row = elem.parentNode.parentNode;
-    alert('are you sure you want to delete?')
+    let confirmDelete = confirm('are you sure you want to delete?')
+    if (confirmDelete == true) {
     row.parentNode.removeChild(row);
     }
+    else {
+        return false
+    }
+}
 
 addBook.addEventListener('click', addBookToTable)
 
@@ -56,11 +63,11 @@ function addBookToTable() {
         return alert('Author cannot be blank')
     }
     if (readBook.checked == true) {
-        read = 'Yes'
+        read = 'YES'
     } 
     else {
         false
-        read = 'No'
+        read = 'NO'
     }
     let template = `
                     <tr>
@@ -73,4 +80,50 @@ function addBookToTable() {
                     `
     table.innerHTML += template
     addBookToLibrary(title, author, pages, read)
+}
+
+table.onclick = function(e) {
+    let target = e.target.closest('.cancel,.ok,td');
+  
+    if (!table.contains(target)) return;
+  
+    if (target.className == 'cancel') {
+      editdone(editTable.elem, false);
+    } else if (target.className == 'ok') {
+      editdone(editTable.elem, true);
+    } else if (target.nodeName == 'TD') {
+      if (editTable) return;
+  
+      editBook(target);
+    }
+
+};
+
+function editBook(td) {
+    editTable = {
+        elem: td,
+        data: td.innerHTML
+      };
+    td.classList.add('edit-td');
+    let textArea = document.createElement('textarea');
+    textArea.className = 'edit-area';
+  
+    textArea.value = td.innerHTML;
+    td.innerHTML = '';
+    td.appendChild(textArea);
+    textArea.focus();
+  
+    td.insertAdjacentHTML("beforeEnd",
+      '<div><button class="ok">OK</button><button class="cancel">CANCEL</button></div>')
+
+}
+
+function editdone(td, isOk) {
+    if (isOk) {
+      td.innerHTML = td.firstChild.value.toUpperCase();
+    } else {
+      td.innerHTML = editTable.data;
+    }
+    td.classList.remove('edit-td');
+    editTable = null;
 }

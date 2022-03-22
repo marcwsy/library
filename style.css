@@ -29,5 +29,16 @@ tr {
     gap: 10px;
     width: 100%;
     padding: var(--spacing-sm);
-  }
+}
 
+.edit-area {
+    background-color: lightyellow;
+    max-height: 25px;
+    max-width: 200px;
+}
+
+.ok, .cancel {
+    font-size: 12px;
+    border-style:none;
+    border-color: black;
+}
