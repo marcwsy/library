@@ -1,3 +1,7 @@
+body {
+    padding: 15px;
+}
+
 #forms {
     display: flex;
     flex-direction: row;
@@ -41,4 +45,8 @@ tr {
     font-size: 12px;
     border-style:none;
     border-color: black;
+}
+
+.have_read {
+    color: green;
 }

@@ -12,9 +12,18 @@ class Book {
         this.pages = pages
         this.read = read
         }
+
+    toggleRead() {
+        if (this.read) {
+            this.read = false;
+        }
+        else {
+            this.read = true;
+        }
+    }
 }
 
-Book.prototype.toggleRead = function() {
+/* Book.prototype.toggleRead = function() {
     if (this.read) {
         this.read = false;
     }
@@ -22,52 +31,51 @@ Book.prototype.toggleRead = function() {
         this.read = true;
     }
 }
-
+ */
 function addBookToLibrary(title, author, pages, read) {
     let book = new Book(title, author, parseInt(pages), read);
-    myLibrary.push(book);
+    myLibrary.push(book)
 }
 
-
 let editTable;
-let addBook = document.querySelector('button')
-let table = document.querySelector('table')
-let titleInput = document.getElementById('title')
-let authorInput = document.getElementById('author')
-let pagesInput = document.getElementById('pages')
-let readBook = document.getElementById('read')
+let addBook = document.querySelector('button');
+let table = document.querySelector('table');
+let titleInput = document.getElementById('title');
+let authorInput = document.getElementById('author');
+let pagesInput = document.getElementById('pages');
+let readBook = document.getElementById('read');
 
 function deleteRow(elem) {
     table = elem.parentNode.parentNode.parentNode;
     let row = elem.parentNode.parentNode;
-    let confirmDelete = confirm('are you sure you want to delete?')
+    let confirmDelete = confirm('are you sure you want to delete?');
     if (confirmDelete == true) {
     row.parentNode.removeChild(row);
     }
     else {
-        return false
+        return false;
     }
 }
 
-addBook.addEventListener('click', addBookToTable)
+addBook.addEventListener('click', addBookToTable);
 
 function addBookToTable() {
-    let title = titleInput.value.toUpperCase()
-    let author = authorInput.value.toUpperCase()
-    let pages = pagesInput.value.toUpperCase()
-    let read = readBook.checked
+    let title = titleInput.value.toUpperCase();
+    let author = authorInput.value.toUpperCase();
+    let pages = pagesInput.value.toUpperCase();
+    let read = readBook.checked;
     if (title === '') {
-        return alert('Title cannot be blank')
+        return alert('Title cannot be blank');
     } 
     else if (author === '') {
-        return alert('Author cannot be blank')
+        return alert('Author cannot be blank');
     }
     if (readBook.checked == true) {
-        read = 'YES'
+        read = 'YES';
     } 
     else {
         false
-        read = 'NO'
+        read = 'NO';
     }
     let template = `
                     <tr>
@@ -78,8 +86,9 @@ function addBookToTable() {
                     <td><button onclick="deleteRow(this)" type="button" class="btn-close" aria-label="Close"></button></td>
                     </tr>
                     `
-    table.innerHTML += template
-    addBookToLibrary(title, author, pages, read)
+    table.innerHTML += template;
+    addBookToLibrary(title, author, pages, read);
+    resetForm();
 }
 
 table.onclick = function(e) {
@@ -114,7 +123,7 @@ function editBook(td) {
     textArea.focus();
   
     td.insertAdjacentHTML("beforeEnd",
-      '<div><button class="ok">OK</button><button class="cancel">CANCEL</button></div>')
+      '<div><button class="ok">OK</button><button class="cancel">CANCEL</button></div>');
 
 }
 
@@ -126,4 +135,9 @@ function editdone(td, isOk) {
     }
     td.classList.remove('edit-td');
     editTable = null;
+}
+
+function resetForm() {
+    titleInput.value = '';
+    read.checked = false;
 }
