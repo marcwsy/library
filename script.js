@@ -23,15 +23,6 @@ class Book {
     }
 }
 
-/* Book.prototype.toggleRead = function() {
-    if (this.read) {
-        this.read = false;
-    }
-    else {
-        this.read = true;
-    }
-}
- */
 function addBookToLibrary(title, author, pages, read) {
     let book = new Book(title, author, parseInt(pages), read);
     myLibrary.push(book)
@@ -140,4 +131,17 @@ function editdone(td, isOk) {
 function resetForm() {
     titleInput.value = '';
     read.checked = false;
+}
+
+const saveLocal = () => {
+localStorage.setItem('library', JSON.stringify(myLibrary))
+}
+
+const restoreLocal = () => {
+const books = JSON.parse(localStorage.getItem('library'))
+if (books) {
+    myLibrary = books.map((book) => JSONToBook(book))
+} else {
+    myLibrary = []
+}
 }

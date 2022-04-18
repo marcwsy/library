@@ -23,8 +23,9 @@ h3 {
 tr {
     text-align: center;
 }
+
 .footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     display: flex;
@@ -32,7 +33,7 @@ tr {
     justify-content: center;
     gap: 10px;
     width: 100%;
-    padding: var(--spacing-sm);
+    padding: 2px;
 }
 
 .edit-area {
